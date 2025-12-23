@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PicpayChal.App.Data.Maps;
 using PicpayChal.App.Models;
 
 namespace PicpayChal.App.Data
@@ -13,6 +14,8 @@ namespace PicpayChal.App.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new WalletMap());
+            modelBuilder.ApplyConfiguration(new TransactionMap());
             base.OnModelCreating(modelBuilder);
         }
     }
