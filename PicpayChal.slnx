@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="PicpayChal.App/PicpayChal.App.csproj" />
+</Solution>
