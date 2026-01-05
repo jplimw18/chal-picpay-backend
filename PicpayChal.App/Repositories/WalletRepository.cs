@@ -6,7 +6,7 @@ using PicpayChal.App.Repositories.Interfaces;
 namespace PicpayChal.App.Repositories;
 
 public sealed class WalletRepository(AppDbContext context)
-        : BaseRepository<Wallet>(context)
+        : BaseRepository<Wallet>(context), IWalletRepository
 {
     
 }
