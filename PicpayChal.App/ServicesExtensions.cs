@@ -22,8 +22,12 @@ public static class ServicesExtensions
     public static void ConfigureRefitClient(this IServiceCollection services)
     {
         var authApiUri = new Uri("https://util.devi.tools/api");
+        var notifyApiUri = new Uri("https://util.devi.tools/api/");
 
         services.AddRefitClient<IAuthorizationApi>()
             .ConfigureHttpClient(c => c.BaseAddress = authApiUri);
+
+        services.AddRefitClient<INotificationApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = notifyApiUri);
     }
 }
