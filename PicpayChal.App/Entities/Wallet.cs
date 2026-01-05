@@ -6,8 +6,6 @@ public record Wallet(string Name, string Email, string Cpf, string Password, int
 {
     public long Id { get; private set; } = 0L;
 
-    public IEnumerable<Transaction> Transactions { get; private set; } = [];
-
     private Wallet()
         : this(string.Empty, string.Empty, string.Empty, string.Empty, 0, 0.0m) { }
 }
