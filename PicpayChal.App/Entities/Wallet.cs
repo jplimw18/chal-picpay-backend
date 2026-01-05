@@ -22,10 +22,10 @@ public static class WalletExtensions
 
     extension(Wallet wallet)
     {
-        private Wallet Debit(decimal amount) =>
+        public Wallet Debit(decimal amount) =>
             wallet with { Balance = wallet.Balance - amount };
 
-        private Wallet Credit(decimal amount) =>
+        public Wallet Credit(decimal amount) =>
             wallet with { Balance = wallet.Balance + amount };
     }
 }
