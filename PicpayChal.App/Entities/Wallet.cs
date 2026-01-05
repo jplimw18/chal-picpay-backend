@@ -3,9 +3,8 @@ using PicpayChal.App.Enums;
 namespace PicpayChal.App.Entities;
 
 public record Wallet(string Name, string Email, string Cpf, string Password, int Type, decimal Balance)
+    : BaseEntity
 {
-    public long Id { get; private set; } = 0L;
-
     private Wallet()
         : this(string.Empty, string.Empty, string.Empty, string.Empty, 0, 0.0m) { }
 }

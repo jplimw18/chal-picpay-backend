@@ -1,9 +1,8 @@
 namespace PicpayChal.App.Entities;
 
 public record Transaction(Wallet Payer, Wallet Payee, decimal Value)
+    : BaseEntity
 {
-    public long Id { get; private set; } = 0L;
-
     public long PayerId { get; private set; } = 0L;
     public long PayeeId { get; private set; } = 0L;
 
