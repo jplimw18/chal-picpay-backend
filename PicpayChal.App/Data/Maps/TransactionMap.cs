@@ -12,11 +12,11 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
         builder.HasOne(x => x.Payer)
-        .WithMany(w => w.Transactions)
+        .WithMany()
         .HasForeignKey(x => x.PayerId);
 
         builder.HasOne(x => x.Payee)
-        .WithMany(w => w.Transactions)
+        .WithMany()
         .HasForeignKey(x => x.PayeeId);
 
         builder.Property(x => x.Value).IsRequired();
