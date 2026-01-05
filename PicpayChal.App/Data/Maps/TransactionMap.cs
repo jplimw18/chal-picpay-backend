@@ -13,11 +13,13 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
 
         builder.HasOne(x => x.Payer)
         .WithMany()
-        .HasForeignKey(x => x.PayerId);
+        .HasForeignKey(x => x.PayerId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.Payee)
         .WithMany()
-        .HasForeignKey(x => x.PayeeId);
+        .HasForeignKey(x => x.PayeeId)
+        .OnDelete(DeleteBehavior.NoAction);
 
         builder.Property(x => x.Value).IsRequired();
     }
