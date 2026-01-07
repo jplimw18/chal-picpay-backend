@@ -1,9 +1,10 @@
-﻿using Refit;
+﻿using PicpayChal.App.DTO;
+using Refit;
 
 namespace PicpayChal.App.Services.External;
 
 public interface INotificationApi
 {
     [Post("v1/notify")]
-    Task Notify();
+    Task<NotificationData> Notify();
 }
