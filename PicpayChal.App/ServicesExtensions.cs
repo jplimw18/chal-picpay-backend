@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using PicpayChal.App.Data;
+using PicpayChal.App.Messaging.Consumer;
 using PicpayChal.App.Repositories;
 using PicpayChal.App.Repositories.Interfaces;
 using PicpayChal.App.Services.External;
@@ -29,5 +31,27 @@ public static class ServicesExtensions
 
         services.AddRefitClient<INotificationApi>()
             .ConfigureHttpClient(c => c.BaseAddress = notifyApiUri);
+    }
+
+
+    public static void ConfigureMessagingQueue(this IServiceCollection services)
+    {
+         services.AddMassTransit(opt =>
+         {
+            opt.AddConsumer<NotificationConsumer>();
+
+            opt.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host("localhost", "/", h =>
+                {
+                   h.Username("guest");
+                   h.Password("guest"); 
+                });
+
+                cfg.UseMessageRetry(r => r.Interval(10, TimeSpan.FromSeconds(5)));
+
+                cfg.ConfigureEndpoints(context);
+            }); 
+         });
     }
 }
