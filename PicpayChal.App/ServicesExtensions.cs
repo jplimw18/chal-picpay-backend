@@ -1,11 +1,13 @@
 ﻿using MassTransit;
+using Refit;
 using Microsoft.EntityFrameworkCore;
 using PicpayChal.App.Data;
 using PicpayChal.App.Messaging.Consumer;
 using PicpayChal.App.Repositories;
 using PicpayChal.App.Repositories.Interfaces;
+using PicpayChal.App.Services;
 using PicpayChal.App.Services.External;
-using Refit;
+using PicpayChal.App.Services.Interfaces;
 
 namespace PicpayChal.App;
 
@@ -17,8 +19,14 @@ public static class ServicesExtensions
         services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(conn));
         services.AddScoped<IWalletRepository, WalletRepository>();
         services.AddScoped<ITransactionRepository, TransactionRepository>();
-
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    public static void ConfigureAppServices(this IServiceCollection services)
+    {
+        services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<IAuthorizationService, AuthorizationService>();
+        services.AddScoped<ITransactionService, TransactionService>();
     }
 
     public static void ConfigureRefitClient(this IServiceCollection services)
@@ -26,10 +34,10 @@ public static class ServicesExtensions
         var authApiUri = new Uri("https://util.devi.tools/api");
         var notifyApiUri = new Uri("https://util.devi.tools/api/");
 
-        services.AddRefitClient<IAuthorizationApi>()
+        services.AddRefitClient<IAuthorizationProvider>()
             .ConfigureHttpClient(c => c.BaseAddress = authApiUri);
 
-        services.AddRefitClient<INotificationApi>()
+        services.AddRefitClient<INotificationProvider>()
             .ConfigureHttpClient(c => c.BaseAddress = notifyApiUri);
     }
 
