@@ -1,7 +1,5 @@
 using PicpayChal.App;
 using PicpayChal.App.Exceptions.Handler;
-using PicpayChal.App.Services.External;
-using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +11,9 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.ConfigurePersistenceApp(builder.Configuration);
 builder.Services.ConfigureRefitClient();
+builder.Services.ConfigurePersistenceApp(builder.Configuration);
+builder.Services.ConfigureAppServices();
 builder.Services.ConfigureMessagingQueue();
 
 var app = builder.Build();
