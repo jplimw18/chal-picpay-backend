@@ -17,7 +17,7 @@ public class TransactionController(
 
 
     [HttpPost]
-    public async Task<ActionResult> Transfer(TransactionRequest request)
+    public async Task<ActionResult> Transfer([FromBody] TransactionRequest request)
     {
         var transactionId = await _transactionService.Transfer(request);
         await _notificationService.Notify(transactionId);
