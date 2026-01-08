@@ -10,17 +10,12 @@ using PicpayChal.App.Services.Interfaces;
 namespace PicpayChal.App.Services;
 
 public sealed class TransactionService(
-    ITransactionRepository transactionRepository,
-    IWalletRepository walletRepository,
-    IAuthorizationService authorizationService,
-    IUnitOfWork unitOfWork
+    ITransactionRepository _transactionRepository,
+    IWalletRepository _walletRepository,
+    IAuthorizationService _authorizationService,
+    IUnitOfWork _unitOfWork
 ) : ITransactionService
 {
-    private readonly ITransactionRepository _transactionRepository = transactionRepository;
-    private readonly IWalletRepository _walletRepository = walletRepository;
-    private readonly IAuthorizationService _authorization = authorizationService;
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-
     public async Task<long> Transfer(TransactionRequest request)
     {
         if (request.Value <= 0.0m)
@@ -47,7 +42,7 @@ public sealed class TransactionService(
 
         var transaction = _transactionRepository.Create(Transaction.Create(payer, payee, request.Value));
     
-        await _authorization.Authorize();
+        await _authorizationService.Authorize();
         await _unitOfWork.CommitAsync();
 
         return transaction.Id;
