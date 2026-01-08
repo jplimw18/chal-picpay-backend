@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace PicpayChal.App.DTO;
 
-public record class TransferRequest
+public record class TransactionRequest
 {
     [Required]
     [JsonPropertyName("value")]

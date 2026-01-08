@@ -5,12 +5,12 @@ using PicpayChal.App.Services.External;
 namespace PicpayChal.App.Messaging.Consumer;
 
 public class NotificationConsumer(INotificationApi notification)
-    : IConsumer<NotifyTransfer>
+    : IConsumer<NotifyTransaction>
 {
 
     private readonly INotificationApi _notification = notification;
 
-    public async Task Consume(ConsumeContext<NotifyTransfer> context)
+    public async Task Consume(ConsumeContext<NotifyTransaction> context)
     {
         var message = context.Message;
 
