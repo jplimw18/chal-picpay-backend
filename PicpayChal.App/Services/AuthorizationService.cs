@@ -5,10 +5,10 @@ using PicpayChal.App.Services.Interfaces;
 
 namespace PicpayChal.App.Services;
 
-public class AuthorizationService(IAuthorizationApi authorizationApi)
+public class AuthorizationService(IAuthorizationProvider authorizationApi)
     : IAuthorizationService
 {
-    private readonly IAuthorizationApi _authorization = authorizationApi;
+    private readonly IAuthorizationProvider _authorization = authorizationApi;
 
     public async Task Authorize()
     {
